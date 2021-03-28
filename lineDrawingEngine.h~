@@ -1,0 +1,10 @@
+#ifndef LINE_DRAWING_ENGINE_H
+#define LINE_DRAWING_ENGINE_H
+
+#include <string>
+
+int startEngine(std::string windowTitle);
+void drawLineBasic(int x0, int y0, int x1, int y1);
+void drawLineBresenham(int x0, int y0, int x1, int y1);
+
+#endif

@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#include "Matrix.h"
+
+using namespace std;
+
+template<typename T>
+Matrix<T>::Matrix(size_t rows, size_t cols) {
+    this->rows = rows;
+    this->cols = cols;
+    data.reserve(rows * cols);
+}
+
+template<typename T>
+T& Matrix<T>::operator()(size_t i, size_t j) {
+    return data[i * cols + j];
+}
+
+template<typename T>
+T Matrix<T>::operator()(size_t i, size_t j) const {
+    return data[i * cols + j];
+}
+
+template<typename T>
+Matrix<T> Matrix<T>::operator*(Matrix &m) const {
+    Matrix result(rows, m.getCols());
+
+    // if time allows, error checking (e.g., invalid sizes)
+    
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < m.getCols(); j++) {
+            int currentSum = 0;
+            
+            for(int k = 0; k < m.getRows(); k++) {
+                currentSum += (*this)(i, k) * m(k, j);
+            }
+
+            result(i, j) = currentSum;
+        }
+    }
+
+    return result;
+}
+
+template<typename T>
+size_t Matrix<T>::getRows() {
+    return rows;
+}
+
+template<typename T>
+size_t Matrix<T>::getCols() {
+    return cols;
+}
